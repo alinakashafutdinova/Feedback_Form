@@ -1,7 +1,5 @@
 <?php
-// По умолчанию получаем заголовки с сайта Московского Политеха.
-// Пользователь может ввести любой другой URL в форме ниже.
-$defaultUrl = 'https://mospolytech.ru';
+$defaultUrl = 'https://httpbin.org';
 $url = isset($_GET['url']) && !empty(trim($_GET['url'])) ? trim($_GET['url']) : $defaultUrl;
 
 // Подавляем предупреждения, если URL недоступен — обработаем сами.
@@ -10,6 +8,7 @@ $headers = @get_headers($url, 1);
 if ($headers === false) {
     $output = "Не удалось получить заголовки с адреса: {$url}\n";
     $output .= "Проверьте корректность URL и доступность ресурса.";
+    $output .= "Возможно, сайт блокирует запросы без браузерных заголовков.";
 } else {
     $output = "URL: {$url}\n";
     $output .= str_repeat('—', 60) . "\n\n";
